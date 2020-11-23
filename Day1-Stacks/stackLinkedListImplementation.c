@@ -1,38 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 typedef struct Node
 {
     struct Node *prev;
     int val;
 } node;
 
+//function to check if the stack is empty 
 int isEmpty(node* top){
-    if(top==NULL)
+    if(top==NULL)//if the top pointer is pointing at NULL it means the stack is empty
         return 1;
     return 0;
     
 }
 
+//function to insert a value into the stack 
 node* push(int val, node *top)
 {
-    node *newNode = (node *)malloc(sizeof(node));
+    node *newNode = (node *)malloc(sizeof(node));//allocate memory for a node struct instance and assign it's address to newNode pointer
     newNode->prev = top;
     newNode->val = val;
     return newNode;
 }
-
-int pop(node **top)
+// function to remove the top most element from the stack 
+int pop(node **top)//used pointer to a pointer since we need to update the value of pointer top 
 {   
     node* temp = *top;
     int val = temp->val;
     node *toDelete = temp;
     temp = temp->prev;
     *top = temp;
-    free(toDelete);
+    free(toDelete);//frees the previously allocated memory 
     return val;
 }
-
+//function that traverses the stack top to bottom and prints each elements value
 void display(node *top)
 {
     node *temp = top;
@@ -42,12 +45,13 @@ void display(node *top)
         temp = temp->prev;
     }
 }
+//function to get the top of stack without popping it
 void peek(node *top)
 {
     printf("%d ", top->val);
     printf("\n");
 }
-
+//driver code
 int main()
 {
     node *stack = NULL;
